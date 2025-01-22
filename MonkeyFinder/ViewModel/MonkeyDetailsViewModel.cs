@@ -2,6 +2,14 @@
 
 namespace MonkeyFinder.ViewModel;
 
-public class MonkeyDetailsViewModel:BaseViewModel
+[QueryProperty("Monkey", "Monkey")]
+public partial class MonkeyDetailsViewModel:BaseViewModel
 {
+    public MonkeyDetailsViewModel()
+    {
+
+    }
+
+    [ObservableProperty]
+    Monkey monkey;
 }

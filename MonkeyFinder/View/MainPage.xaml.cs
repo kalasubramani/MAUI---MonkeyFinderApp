@@ -3,9 +3,11 @@
     public partial class MainPage : ContentPage
     {
      
-        public MainPage()
+        public MainPage(MonkeysViewModel viewModel)
         {
             InitializeComponent();
+            //bings page and viewmodel
+            BindingContext = viewModel;
         }
 
         private void OnCounterClicked(object sender, EventArgs e)
