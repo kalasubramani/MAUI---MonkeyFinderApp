@@ -7,10 +7,35 @@
              x:DataType="viewmodel:MonkeysViewModel"
              Title="{Binding Title}">
 
+    <!--add a refresh button to the page for Windows-->
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="REFRESH" Command="{Binding GetMonkeysCommand}"/>
+    </ContentPage.ToolbarItems>
+    
     <Grid ColumnDefinitions="*,*" ColumnSpacing="5" RowDefinitions="*,Auto" RowSpacing="0">
-        <CollectionView BackgroundColor="Transparent" 
-                        Grid.ColumnSpan="2" ItemsSource="{Binding Monkeys}"
+        <!--<CollectionView.EmptyView>
+            <StackLayout Padding="100">
+                <Image HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" Source="nodata.png"/>
+            </StackLayout>
+        </CollectionView.EmptyView>-->
+
+        <RefreshView  Grid.ColumnSpan="2" Command="{Binding GetMonkeysCommand}" IsRefreshing="{Binding IsRefreshing}">
+             <CollectionView BackgroundColor="Transparent" 
+                        ItemsSource="{Binding Monkeys}"
                         SelectionMode="None">
+                <!--<CollectionView.ItemsLayout>
+                    <GridItemsLayout Orientation="Vertical" Span="3"/>
+                </CollectionView.ItemsLayou-->
+
+                 <!--add contents for landing page-->
+                <CollectionView.EmptyView>
+                    <StackLayout HorizontalOptions="Center" VerticalOptions="Center" 
+                                 WidthRequest="200" HeightRequest="200">
+                        <Image Source="nodata.png" HorizontalOptions="CenterAndExpand"
+                               VerticalOptions="CenterAndExpand" Aspect="AspectFill"></Image>
+                    </StackLayout>
+                </CollectionView.EmptyView>
+                 
             <CollectionView.ItemTemplate>
                 <DataTemplate x:DataType="model:Monkey">
                     <Grid Padding="10">
@@ -34,8 +59,12 @@
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>
+        </RefreshView>
+        
         <Button Text="Get Monkeys" Command="{Binding GetMonkeysCommand}" Style="{StaticResource ButtonOutline}"
                 IsEnabled="{Binding IsNotBusy}" Grid.Row="1" Margin="8"/>
+        <Button Text="Find Closest" Command="{Binding GetClosestMonkeyCommand}" Style="{StaticResource ButtonOutline}"
+         IsEnabled="{Binding IsNotBusy}" Grid.Row="1" Grid.Column="1" Margin="8"/>
 
         <!--display loading icon-->
         <ActivityIndicator IsVisible="{Binding IsBusy}" IsRunning="{Binding IsBusy}" 

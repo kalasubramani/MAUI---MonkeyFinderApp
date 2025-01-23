@@ -17,6 +17,12 @@ namespace MonkeyFinder
                     fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
                 });
 
+            //connectivity, geolocation, maps
+            builder.Services.AddSingleton<IConnectivity>(Connectivity.Current);
+            builder.Services.AddSingleton<IGeolocation>(Geolocation.Default);
+            builder.Services.AddSingleton<IMap>(Map.Default);
+
+
             //dependency injection for service and viewmodel
             builder.Services.AddSingleton<MonkeyService>();
 
